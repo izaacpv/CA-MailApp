@@ -1,0 +1,43 @@
+.mail-preview {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding-left: 10px;
+}
+
+.mail-from-preview {
+  font-size: 14px;
+  width: 200px;
+}
+
+.mail-subject-preview {
+  font-size: 14px;
+}
+
+.mail-preview-unread {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.mail-body-preview {
+  font-size: small;
+  padding-left: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: rgb(79, 80, 81);
+}
+
+
+
+@media screen and (max-width: 1500px) {
+  .mail-body-preview {
+    width: 700px;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .mail-body-preview {
+    width: 1700px;
+  }
+}

@@ -1,0 +1,40 @@
+.app-header section.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px lightgrey solid;
+  padding: 5px;
+}
+
+.app-header nav.items {
+  display: flex;
+  gap: 50px;
+  margin-right: 50px;
+}
+
+.logo {
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+  width: 140px;
+  justify-content: space-between;
+}
+
+.logo .logo-img {
+  height: 50px;
+}
+
+.items .item {
+  padding: 10px;
+  border-radius: 10%;
+  transition: 200ms linear;
+}
+
+.items .item.active {
+  text-decoration: underline;
+  background-color: rgb(231, 225, 225);
+}
+
+.items .item:hover {
+  background-color: rgb(231, 225, 225);
+}

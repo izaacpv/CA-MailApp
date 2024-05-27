@@ -1,0 +1,8 @@
+.email-index {
+  height: inherit;
+  display: flex;
+}
+
+.email-content {
+  flex: 1
+}
