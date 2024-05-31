@@ -3,7 +3,7 @@ import { EmailIndex } from "./cmps/EmailIndex";
 import { AppHeader } from "./cmps/AppHeader";
 import { HomePage } from "./cmps/HomePage";
 import { AboutUs } from "./cmps/AboutUs";
-import './assets/css/index.css'
+import "./assets/css/index.css";
 import { EmailDetails } from "./cmps/EmailDetails";
 
 function App() {
@@ -14,9 +14,10 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutUs/>}/>
-            <Route path="/mail" element={ <EmailIndex/> }/>
-            <Route path="/mail/:mailId" element={ <EmailDetails/> }/>
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/mail" element={<EmailIndex />}>
+              <Route path=":mailId" element={<EmailDetails />} />
+            </Route>
           </Routes>
         </main>
       </section>

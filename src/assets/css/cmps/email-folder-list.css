@@ -1,20 +1,15 @@
 .email-folder-list {
   margin-top: 20px;
+
 }
 
 .side-bar {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 15%;
-  height: 100vh;
-  background-color: #ebf0f2;
-
+  grid-area: a;
 }
 
 .compose {
   margin-top: 20px;
-
+  grid-area: c;
 }
 
 .folder-item {

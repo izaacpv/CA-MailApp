@@ -1,8 +1,6 @@
 .email-index {
-  height: 100vh;
-  display: flex;
-}
-
-.email-content {
-  flex: 1
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "a f" "a l";
 }

@@ -13,8 +13,8 @@ export function EmailDetails() {
   const params = useParams();
   let date;
 
-  if(mail) {
-    date = new Date(mail.sentAt)
+  if (mail) {
+    date = new Date(mail.sentAt);
   }
 
   useEffect(() => {
@@ -26,24 +26,37 @@ export function EmailDetails() {
     setMail(mail);
   }
 
+  function onRemove() {
+    emailService.removeMail(mail.id)
+  }
+
   if (!mail) return <div>loading...</div>;
   return (
     <section className="email-details">
       <section className="email-details-content">
         <nav className="email-details-action-nav">
-          <Link to="/mail"><img src={backIcon} alt="" className="back-btn details-nav-item" /></Link>
+          <Link to="/mail">
+            <img src={backIcon} alt="" className="back-btn details-nav-item" />
+          </Link>
           <img src={readImg} alt="" className="unread-btn details-nav-item" />
-          <img src={binImg} alt="" className="unread-btn details-nav-item" />
+          <img
+            src={binImg}
+            alt=""
+            className="unread-btn details-nav-item"
+          />
           <img
             src={mail.isStarred ? starOn : starOff}
             className="star details-nav-item"
             alt="star"
+            onClick={onRemove}
           />
         </nav>
         <section className="mail-content">
           <section className="mail-header">
             <h1>{mail.subject}</h1>
-            <span>{`${utilService.getMonthName(date)} ${date.getDay()} ${date.getFullYear()}`}</span>
+            <span>{`${utilService.getMonthName(
+              date
+            )} ${date.getDay()} ${date.getFullYear()}`}</span>
           </section>
           <span>{mail.body}</span>
         </section>

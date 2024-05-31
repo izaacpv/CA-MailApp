@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import { emailService } from "../services/emailService.js";
 import { EmailList } from "./EmailList.jsx";
 import { useEffect } from "react";
@@ -57,6 +58,7 @@ export function EmailIndex() {
         <EmailFolderList onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
       </div>
       <section className="email-content">
+        <Outlet/>
         <EmailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
         <EmailList
           mails={mails}

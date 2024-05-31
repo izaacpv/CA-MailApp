@@ -15,7 +15,7 @@ export function EmailList({ mails, handleStar, onRemove, onRead }) {
       <ul>
         {mails.map((mail) => {
           return (
-            <li className={mail.isRead ? 'mail-read' : ''} key={mail.id}>
+            <li className={`${mail.isRead ? 'mail-read' : ''} mail-li`} key={mail.id}>
               <img
                 src={mail.isStarred ? starOn : starOff}
                 className="star"

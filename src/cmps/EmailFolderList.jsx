@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export function EmailFolderList({ onSetFilterBy, filterBy }) {
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
@@ -13,7 +14,7 @@ export function EmailFolderList({ onSetFilterBy, filterBy }) {
 
   function handleSelection(selection) {
     if (selection === "unread") {
-      setFilterByToEdit({isRead: true });
+      setFilterByToEdit({ isRead: true });
     } else {
       setFilterByToEdit({
         status: selection,
@@ -25,34 +26,40 @@ export function EmailFolderList({ onSetFilterBy, filterBy }) {
   return (
     <section className="email-folder-list">
       <ul className="folder-items">
-        <li
-          className={`folder-item ${
-            filterByToEdit.status === "inbox" && !filterByToEdit.isRead
-              ? "active-filter"
-              : ""
-          }`}
-          onClick={() => handleSelection("inbox")}
-        >
-          Inbox
-        </li>
-        <li
-          className={`folder-item ${
-            filterByToEdit.status === "starred" && !filterByToEdit.isRead
-              ? "active-filter"
-              : ""
-          }`}
-          onClick={() => handleSelection("starred")}
-        >
-          Starred
-        </li>
-        <li
-          className={`folder-item ${
-            filterByToEdit.isRead ? "active-filter" : ""
-          }`}
-          onClick={() => handleSelection("unread")}
-        >
-          Unread
-        </li>
+        <Link to="/mail">
+          <li
+            className={`folder-item ${
+              filterByToEdit.status === "inbox" && !filterByToEdit.isRead
+                ? "active-filter"
+                : ""
+            }`}
+            onClick={() => handleSelection("inbox")}
+          >
+            Inbox
+          </li>
+        </Link>
+        <Link to="/mail">
+          <li
+            className={`folder-item ${
+              filterByToEdit.status === "starred" && !filterByToEdit.isRead
+                ? "active-filter"
+                : ""
+            }`}
+            onClick={() => handleSelection("starred")}
+          >
+            Starred
+          </li>
+        </Link>
+        <Link to="/mail">
+          <li
+            className={`folder-item ${
+              filterByToEdit.isRead ? "active-filter" : ""
+            }`}
+            onClick={() => handleSelection("unread")}
+          >
+            Unread
+          </li>
+        </Link>
       </ul>
     </section>
   );
