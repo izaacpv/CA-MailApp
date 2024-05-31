@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { emailService } from "../services/emailService";
 import backIcon from "../assets/back.png";
 import binImg from "../assets/bin.png";
@@ -31,7 +31,7 @@ export function EmailDetails() {
     <section className="email-details">
       <section className="email-details-content">
         <nav className="email-details-action-nav">
-          <img src={backIcon} alt="" className="back-btn details-nav-item" />
+          <Link to="/mail"><img src={backIcon} alt="" className="back-btn details-nav-item" /></Link>
           <img src={readImg} alt="" className="unread-btn details-nav-item" />
           <img src={binImg} alt="" className="unread-btn details-nav-item" />
           <img
