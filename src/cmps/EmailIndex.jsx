@@ -16,9 +16,9 @@ export function EmailIndex() {
   async function loadMails() {
     try {
       const data = await emailService.query(filterBy);
-    setMails(data);
+      setMails(data);
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -51,17 +51,20 @@ export function EmailIndex() {
 
   if (!mails) return <div>loading...</div>;
   return (
-      <section className="email-index">
-        <EmailFolderList />
-        <section className="email-content">
-          <EmailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
-          <EmailList
-            mails={mails}
-            handleStar={handleStar}
-            onRemove={onRemove}
-            onRead={onRead}
-          />
-        </section>
+    <section className="email-index">
+      <div className="side-bar">
+        <div className="compose">Compose TODO</div>
+        <EmailFolderList onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
+      </div>
+      <section className="email-content">
+        <EmailFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
+        <EmailList
+          mails={mails}
+          handleStar={handleStar}
+          onRemove={onRemove}
+          onRead={onRead}
+        />
       </section>
+    </section>
   );
 }

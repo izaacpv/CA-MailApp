@@ -5,6 +5,11 @@ import binImg from "../assets/bin.png";
 import readImg from "../assets/read-mail.png"
 
 export function EmailList({ mails, handleStar, onRemove, onRead }) {
+
+  function onReadDetails(mail) {
+    onRead(mail)
+  }
+
   return (
     <section className="email-list">
       <ul>
@@ -17,7 +22,7 @@ export function EmailList({ mails, handleStar, onRemove, onRead }) {
                 alt="star"
                 onClick={() => handleStar(mail)}
               />
-              <EmailPreview mail={mail} />
+              <EmailPreview mail={mail} onReadDetails={onReadDetails} />
               <section className="preview-actions">
                 <img className="bin-icon" src={binImg} alt="remove" onClick={() => onRemove(mail.id)}/>
                 <img className="read-icon" src={readImg} alt="read" onClick={() => onRead(mail)}/>

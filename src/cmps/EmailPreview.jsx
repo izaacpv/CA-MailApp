@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { utilService } from "../services/util.service.js";
 
-export function EmailPreview({ mail }) {
+export function EmailPreview({ mail, onReadDetails }) {
   const date = new Date(mail.sentAt);
 
   return (
-    <Link className="mail-preview" to={`/mail/${mail.id}`}>
+    <Link className="mail-preview" to={`/mail/${mail.id}`} onClick={() => onReadDetails(mail)}>
         <span
           className={`mail-from-preview ${
             mail.isRead ? "" : "mail-preview-unread"

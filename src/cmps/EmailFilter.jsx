@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 
-export function EmailFilter({ filterBy, onSetFilterBy }) {
-  const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
+export function EmailFilter({ onSetFilterBy }) {
+  const [filterByToEdit, setFilterByToEdit] = useState();
   const formRef = useRef();
 
   function onSubmitFilter(ev) {
@@ -12,7 +12,7 @@ export function EmailFilter({ filterBy, onSetFilterBy }) {
   function handleChange({ target }) {
     let { value, name: field, type } = target;
     value = type === "number" ? +value : value;
-    setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }));
+    setFilterByToEdit(({ [field]: value }));
   }
 
   return (

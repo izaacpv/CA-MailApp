@@ -12,22 +12,26 @@ export const emailService = {
 const MAILS_KEY = "emailDB";
 
 const loggedUser = {
-  email: 'user@appsus.com',
-  fullname: 'Ahla Gever'
-}
+  email: "user@appsus.com",
+  fullname: "Ahla Gever",
+};
 
 async function query(filterBy) {
-    let mails = await storageService.query(MAILS_KEY);
-    console.log(mails);
-    console.log(filterBy);
-    if (filterBy) {
-      let { search } = filterBy;
-      mails = mails.filter((mail) =>
-        mail.subject.toLowerCase().includes(search.toLowerCase()) ||
-        mail.body.toLowerCase().includes(search.toLowerCase())
-      );
-    return mails
-    }
+  let mails = await storageService.query(MAILS_KEY);
+  console.log(filterBy);
+
+  if (filterBy) {
+    let { search, isRead, status } = filterBy;
+    mails = mails.filter(
+      (mail) =>
+        (mail.subject.toLowerCase().includes(search.toLowerCase()) ||
+          mail.body.toLowerCase().includes(search.toLowerCase())) &&
+        ((!mail.isRead && isRead) ||
+          (mail.isStarred && status === "starred" && !isRead) ||
+          (status === "inbox" && !isRead))
+    );
+    return mails;
+  }
 }
 
 function save(mail) {
@@ -39,7 +43,7 @@ function save(mail) {
 }
 
 function getMailById(id) {
-  return storageService.get(MAILS_KEY, id)
+  return storageService.get(MAILS_KEY, id);
 }
 
 function removeMail(id) {
@@ -54,7 +58,16 @@ function getDefaultFilter() {
   };
 }
 
-function _createMail(subject, body, isRead, isStarred, sentAt, removedAt, from, to) {
+function _createMail(
+  subject,
+  body,
+  isRead,
+  isStarred,
+  sentAt,
+  removedAt,
+  from,
+  to
+) {
   return {
     id: utilService.makeId(),
     subject,
@@ -64,13 +77,13 @@ function _createMail(subject, body, isRead, isStarred, sentAt, removedAt, from, 
     sentAt,
     removedAt,
     from,
-    to
+    to,
   };
 }
 
 function _createMails() {
   let mails = utilService.loadFromStorage(MAILS_KEY);
-  if (!mails || !mails.length) {
+  if (!mails) {
     mails = [];
     for (let i = 0; i < 30; i++) {
       mails.push(

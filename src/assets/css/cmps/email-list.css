@@ -1,8 +1,9 @@
 .email-list {
   display: flex;
   flex-grow: 1;
-  height: inherit;
+  height: 100vh;
   border: 1px lightgrey solid;
+  overflow-y: scroll;
 }
 
 .email-list .star {
@@ -14,7 +15,7 @@
 
 .email-list li {
   display: flex;
-  height: 40px;
+  padding: 6px;
   list-style: none;
   transition: 100ms linear;
   border-bottom: 1px rgb(187, 185, 185) solid;
