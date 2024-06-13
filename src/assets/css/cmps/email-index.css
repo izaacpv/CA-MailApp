@@ -1,6 +1,8 @@
 .email-index {
   display: grid;
-  grid-template-columns: 1fr 5fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: "a f" "a l";
+  grid-template-columns: minmax(auto, 240px) 5fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 
+  "h h"
+  "f l";
 }

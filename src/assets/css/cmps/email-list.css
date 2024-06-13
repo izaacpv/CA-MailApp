@@ -1,15 +1,13 @@
 .email-list {
   grid-area: l;
   overflow-y: auto;
-  height: 87.5vh;
+  height: 93vh;
+  background-color: #fff;
+  border-radius: 1%;
+  margin: 10px;
 }
 
-.email-list .star {
-  height: 27px;
-  padding: 5px;
-  align-self: center;
-  margin-left: 5px;
-}
+
 
 .email-list li {
   display: flex;
@@ -17,10 +15,11 @@
   list-style: none;
   transition: 100ms linear;
   border-bottom: 1px rgb(187, 185, 185) solid;
+  cursor: pointer
 }
 
 .email-list .mail-read {
-  background-color: rgb(235, 244, 244);
+  background-color: #F2F6FC;
 }
 
 .email-list li:hover {
@@ -34,28 +33,7 @@
   width: 100%;
 }
 
-.email-list .star:hover {
-  background-color: rgb(210, 206, 206);
-  border-radius: 30%;
-}
 
-.email-list .preview-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 30px;
-}
-
-.email-list .preview-actions img {
-  height: 30px;
-  padding: 5px;
-  margin: 5px;
-}
-
-.email-list .preview-actions img:hover {
-  background-color: rgb(210, 206, 206);
-  border-radius: 30%;
-}
 
 /* .email-list .bin-icon {
   align-self: center;
@@ -63,19 +41,12 @@
   height: 20px;
 } */
 
-.email-list li .preview-actions {
+.email-list .preview-actions {
   display: none;
 }
 
 .email-list li:hover .preview-actions {
   display: flex;
-}
-
-.mail-preview-date {
-  display: flex;
-  flex: 1;
-  padding-right: 20px;
-  justify-content: end;
 }
 
 .email-list li:hover .mail-preview-date {

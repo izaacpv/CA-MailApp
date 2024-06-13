@@ -1,36 +1,37 @@
 import { EmailPreview } from "./EmailPreview";
-import starOn from "../assets/star-selected.png";
-import starOff from "../assets/star-unselected.png";
-import binImg from "../assets/bin.png";
-import readImg from "../assets/read-mail.png"
+import { Outlet } from "react-router-dom";
 
-export function EmailList({ mails, handleStar, onRemove, onRead }) {
+export function EmailList({ mails, handleStar, onRemove, onRead, onUpdateMail, params }) {
+  if (!mails.length) return <p>No mails found</p>;
 
-  function onReadDetails(mail) {
-    onRead(mail)
+  function generateMails() {
+    return (
+      mails.map((mail) => {
+        return (
+          <li
+            className={`${mail.isRead ? "mail-read" : ""} mail-li`}
+            key={mail.id}
+          >
+            <EmailPreview
+              mail={mail}
+              onRead={onRead}
+              onRemove={onRemove}
+              onUpdateMail={onUpdateMail}
+              handleStar={handleStar}
+              folder={params.folder}
+            />
+          </li>
+        );
+      })
+    )
   }
 
   return (
     <section className="email-list">
       <ul>
-        {mails.map((mail) => {
-          return (
-            <li className={`${mail.isRead ? 'mail-read' : ''} mail-li`} key={mail.id}>
-              <img
-                src={mail.isStarred ? starOn : starOff}
-                className="star"
-                alt="star"
-                onClick={() => handleStar(mail)}
-              />
-              <EmailPreview mail={mail} onReadDetails={onReadDetails} />
-              <section className="preview-actions">
-                <img className="bin-icon" src={binImg} alt="remove" onClick={() => onRemove(mail.id)}/>
-                <img className="read-icon" src={readImg} alt="read" onClick={() => onRead(mail)}/>
-              </section>
-            </li>
-          );
-        })}
+        {!params.mailId && generateMails()}
       </ul>
+      <Outlet />
     </section>
   );
 }

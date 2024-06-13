@@ -1,27 +1,49 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { emailService } from "../services/emailService";
+import { utilService } from "../services/util.service";
 
-export function EmailFilter({ onSetFilterBy }) {
-  const [filterByToEdit, setFilterByToEdit] = useState();
-  const formRef = useRef();
+export function EmailFilter({ setFilterBy, filterBy }) {
+  const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
+  const debouncedSetFilter = useRef(utilService.debounce(setFilterBy, 500));
 
-  function onSubmitFilter(ev) {
-    ev.preventDefault();
-    onSetFilterBy(filterByToEdit);
-  }
+  useEffect(() => {
+    debouncedSetFilter.current(filterByToEdit);
+  }, [filterByToEdit]);
 
   function handleChange({ target }) {
-    let { value, name: field, type } = target;
-    value = type === "number" ? +value : value;
-    setFilterByToEdit(({ [field]: value }));
+    let { name: field, value } = target
+    if (field === 'isRead') {
+        if (value === 'all') value = null
+        else value = (value === 'read')
+    }
+    setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
   }
+
+  const { search, isRead } = filterByToEdit;
 
   return (
     <section className="email-filter">
-      <form ref={formRef} onSubmit={onSubmitFilter}>
+      <form name="filter-form">
         <label htmlFor="search"></label>
-        <input className="search-input" onChange={handleChange} name="search" id="search" type="text" />
-        <button className="search-btn">Search</button>
+        <input
+          className="search-bar"
+          onChange={handleChange}
+          name="search"
+          id="search"
+          type="text"
+          value={search || ""}
+        />
       </form>
+      <label htmlFor="isRead"></label>
+      <select
+        value={emailService.convertFilterIsRead(isRead)}
+        name="isRead"
+        onChange={handleChange}
+      >
+        <option value="all">All</option>
+        <option value="read">Read</option>
+        <option value="unread">Unread</option>
+      </select>
     </section>
   );
 }

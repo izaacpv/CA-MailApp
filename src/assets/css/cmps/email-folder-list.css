@@ -1,24 +1,30 @@
 .email-folder-list {
   margin-top: 20px;
-
-}
-
-.side-bar {
-  grid-area: a;
-}
-
-.compose {
-  margin-top: 20px;
-  grid-area: c;
+  grid-area: f;
+  padding-right: 10px;
 }
 
 .folder-item {
+  display: flex;
+  flex: 1;
+  align-items: center;
   margin-bottom: 15px;
-  padding: 20px;
+  padding: 5px;
+  padding-left: 20px;
+  font-size: 14px;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  cursor: pointer;
+}
+
+.folder-item .unread-count {
+  margin-left: auto;
 }
 
 .active-filter {
-  background-color: rgb(187, 185, 185);
+  background-color: #D2E4FD;
+  font-weight: bold;
+  color: #2F4860;
 }
 
 .email-folder-list ul {
@@ -27,3 +33,8 @@
   width: 100%;
   list-style: none;
 }
+
+.email-folder-list .folder-icon {
+  height: 20px;
+  margin-right: 40px;
+} 

@@ -1,14 +1,10 @@
 .email-details {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background-color: #ebf0f2;
+  height: inherit;
 }
 
 .email-details-content {
-  border: 1px lightgrey solid;
-  background-color: white;
-  margin: 30px;
 }
 
 

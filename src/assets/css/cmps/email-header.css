@@ -1,0 +1,12 @@
+.email-header {
+  grid-area: h;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.email-header img {
+  height: auto;
+  margin-left: 50px;
+  margin-top: 6px;
+}

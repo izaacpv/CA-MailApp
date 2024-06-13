@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { emailService } from "../services/emailService";
 import backIcon from "../assets/back.png";
 import binImg from "../assets/bin.png";
 import readImg from "../assets/read-mail.png";
 import starOn from "../assets/star-selected.png";
-import starOff from "../assets/star-unselected.png";
+import starOff from "../assets/star.png";
 import { utilService } from "../services/util.service";
 
 export function EmailDetails() {
+  const navigate = useNavigate()
   const [mail, setMail] = useState(null);
   const params = useParams();
   let date;
@@ -27,7 +28,8 @@ export function EmailDetails() {
   }
 
   function onRemove() {
-    emailService.removeMail(mail.id)
+    emailService.removeMail(mail)
+    // navigate(`/mail/${params.folder}`)
   }
 
   if (!mail) return <div>loading...</div>;
@@ -35,20 +37,13 @@ export function EmailDetails() {
     <section className="email-details">
       <section className="email-details-content">
         <nav className="email-details-action-nav">
-          <Link to="/mail">
-            <img src={backIcon} alt="" className="back-btn details-nav-item" />
-          </Link>
+          <img onClick={() => navigate(`/mail/${params.folder}`)} src={backIcon} alt="" className="back-btn details-nav-item" />
           <img src={readImg} alt="" className="unread-btn details-nav-item" />
-          <img
-            src={binImg}
-            alt=""
-            className="unread-btn details-nav-item"
-          />
+          <img onClick={onRemove} src={binImg} alt="" className="unread-btn details-nav-item" />
           <img
             src={mail.isStarred ? starOn : starOff}
             className="star details-nav-item"
             alt="star"
-            onClick={onRemove}
           />
         </nav>
         <section className="mail-content">

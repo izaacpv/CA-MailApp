@@ -8,7 +8,8 @@ export const utilService = {
     capFirstLetter,
     getRandomGreeting,
     getDayName,
-    getMonthName
+    getMonthName,
+    debounce
 }
 
 function getRandomGreeting() {
@@ -83,6 +84,16 @@ function saveToStorage(key, value) {
 function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
+}
+
+function debounce(func, timeout = 500) {
+    let timer
+    return (...args) => {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            func.apply(this, args)
+        }, timeout)
+    }
 }
 
 function animateCSS(el, animation = 'bounce') {

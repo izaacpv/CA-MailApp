@@ -1,65 +1,36 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import star from "../assets/star.png";
+import inbox from "../assets/inbox.png";
+import binImg from "../assets/bin.png";
+import sentImg from "../assets/sent.png";
+import draftImg from "../assets/draft.png";
+import { emailService } from "../services/emailService.js";
 
-export function EmailFolderList({ onSetFilterBy, filterBy }) {
-  const [filterByToEdit, setFilterByToEdit] = useState(filterBy);
-
-  useEffect(() => {
-    onSetFilterBy(filterByToEdit);
-  }, [filterByToEdit]);
-
-  // useEffect(() => {
-  //   setFilterByToEdit(filterBy)
-  // }, [filterBy])
-
-  function handleSelection(selection) {
-    if (selection === "unread") {
-      setFilterByToEdit({ isRead: true });
-    } else {
-      setFilterByToEdit({
-        status: selection,
-        isRead: false,
-      });
-    }
+export function EmailFolderList({ params, navigate, unreadMailsCount }) {
+  function handleSelection(path) {
+    if (path === currFolder && !params.mailId) return;
+    const url = `/mail/${path}`;
+    navigate(url);
   }
 
+  const currFolder = params.folder;
+  const folders = emailService.getFolders();
+  const folderIcons = [inbox, star, sentImg, draftImg, binImg];
   return (
     <section className="email-folder-list">
       <ul className="folder-items">
-        <Link to="/mail">
+        {folders.map((folder, idx) => (
           <li
+            key={folder.path}
             className={`folder-item ${
-              filterByToEdit.status === "inbox" && !filterByToEdit.isRead
-                ? "active-filter"
-                : ""
+              folder.path === currFolder ? "active-filter" : ""
             }`}
-            onClick={() => handleSelection("inbox")}
+            onClick={() => handleSelection(folder.path)}
           >
-            Inbox
+            <img src={folderIcons[idx]} className="folder-icon" />
+            <span>{folder.name}</span>
+            {folder.path === 'inbox' && <span className="unread-count">{unreadMailsCount}</span>}
           </li>
-        </Link>
-        <Link to="/mail">
-          <li
-            className={`folder-item ${
-              filterByToEdit.status === "starred" && !filterByToEdit.isRead
-                ? "active-filter"
-                : ""
-            }`}
-            onClick={() => handleSelection("starred")}
-          >
-            Starred
-          </li>
-        </Link>
-        <Link to="/mail">
-          <li
-            className={`folder-item ${
-              filterByToEdit.isRead ? "active-filter" : ""
-            }`}
-            onClick={() => handleSelection("unread")}
-          >
-            Unread
-          </li>
-        </Link>
+        ))}
       </ul>
     </section>
   );
