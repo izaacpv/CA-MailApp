@@ -48,21 +48,29 @@ export function EmailIndex() {
 
   function onRemove(mail) {
     emailService.removeMail(mail);
+    // params.folder !== "trash" &&
+    //   setMails((prevMail) =>
+    //     prevMail.filter(
+    //       (mailObj) => !mailObj.removedAt && mailObj.id !== mail.id
+    //     )
+    //   );
+    // params.folder === "trash" &&
+    //   setMails((prevMail) =>
+    //     prevMail.filter((mailObj) => mailObj.id !== mail.id)
+    //   );
   }
 
   async function onUpdateMail(newMail) {
     try {
       await emailService.save(newMail);
-      if (params.folder !== "trash") {
+      if (params.folder === "trash") {
         setMails((prevMail) =>
-          prevMail.filter(
-            (mailObj) => !mailObj.removedAt && mailObj.id !== newMail.id
-          )
+          prevMail.filter((mailObj) => mailObj.id !== newMail.id)
         );
       } else {
-          setMails((prevMail) =>
-            prevMail.filter((mailObj) => mailObj.id !== newMail.id)
-          );
+        setMails((prevMails) =>
+          prevMails.map((mail) => (mail.id === newMail.id ? newMail : mail))
+        );
       }
     } catch (error) {
       console.log("error: ", error);
